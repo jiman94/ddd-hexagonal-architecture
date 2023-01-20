@@ -7,13 +7,13 @@ An example approach for designing and implementing a **DDD Hexagonal Architectur
 ![DDD!](/assets/images/ddd.png "Domain Driven Design")
 
 ## 2. DDD & Hexagonal Architecture
-**Hexagonal** architecture is an alternative to the layered architectural style. The hexagonal architecture style organizes the logical view in a way that places the business logic at the center. Instead of the presentation layer, the application has one or more inbound adapters that handle requests from the outside by invoking the business logic. Similarly, instead of a data persistence tier, the application has one or more outbound adapters that are invoked by the business logic and invoke external applications. A key characteristic and benefit of this architecture is that the business logic doesn’t depend on the adapters. Instead, they depend upon it
+**Hexagonal** architecture is an alternative to the layered architectural style. The hexagonal architecture style organizes the logical view in a way that places the business logic at the center. Instead of the presentation layer, the application has one or more inbound **adapters** that handle requests from the outside by invoking the business logic. Similarly, instead of a data persistence tier, the application has one or more outbound **adapters** that are invoked by the business logic and invoke external applications. A key characteristic and benefit of this architecture is that the business logic doesn’t depend on the **adapters**. Instead, they depend upon it
 
-The business logic has one or more **ports**. A **port** defines a set of operations and is how the business logic interacts with what’s outside of it. In Java, for example, a **port** is often a Java interface. There are two kinds of ports: inbound and outbound ports. An inbound port is an API exposed by the business logic, which enables it to be invoked by external applications. An example of an inbound port is a service interface, which defines a service’s public methods. An outbound port is how the business logic invokes external systems. An example of an output port is a repository interface, which defines a collection of data access operations
+The business logic has one or more **ports**. A **port** defines a set of operations and is how the business logic interacts with what’s outside of it. In Java, for example, a **port** is often a Java interface. There are two kinds of **ports**: inbound and outbound **ports**. An inbound **port** is an API exposed by the business logic, which enables it to be invoked by external applications. An example of an inbound **port** is a service interface, which defines a service’s public methods. An outbound **port** is how the business logic invokes external systems. An example of an output **port** is a repository interface, which defines a collection of data access operations
 
-An important benefit of the hexagonal architectural style is that it decouples the business logic from the presentation and data access logic in the adapters. The business logic doesn’t depend on either the presentation logic or the data access logic
+An important benefit of the hexagonal architectural style is that it decouples the business logic from the presentation and data access logic in the **adapters**. The business logic doesn’t depend on either the presentation logic or the data access logic
 
-Because of this decoupling, it’s much easier to test the business logic in isolation. Another benefit is that it more accurately reflects the architecture of a modern application. The business logic can be invoked via multiple adapters, each of which implements a particular API or UI. The business logic can also invoke multiple adapters, each one of which invokes a different external system. Hexagonal architecture is a great way to describe the architecture of each service in a microservice architecture
+Because of this decoupling, it’s much easier to test the business logic in isolation. Another benefit is that it more accurately reflects the architecture of a modern application. The business logic can be invoked via multiple **adapters**, each of which implements a particular API or UI. The business logic can also invoke multiple **adapters**, each one of which invokes a different external system. Hexagonal architecture is a great way to describe the architecture of each service in a microservice architecture
 
 ![DDD & Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "DDD & Hexagonal Architecture")
 
@@ -33,7 +33,7 @@ This demo application demonstrates how to monitor a Java Spring Boot application
 **Logging and Monitoring Solution**\
 ![Logging and Monitoring Solution!](/assets/images/logging_monitoring_solution.png "Logging and Monitoring Solution")
 
-3.1. Install & run Jaeger
+**3.1. Install & Run Jaeger**
 ```
 $ docker run -d --name jaeger \
   -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
@@ -63,7 +63,7 @@ $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar \
      
  $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -jar target/dddhexagonalarchitecture-0.0.1.jar
 ```
-3.4. Search Logs
+**3.4. Search Logs**
 ![Jaeger Search!](/assets/images/jaeger_ui.png "Jaeger Search")
 
 ## 4. API Documentation - Swagger
@@ -82,7 +82,7 @@ http://localhost:9090/swagger-ui.html
 ![The Order Swagger!](/assets/images/order_swagger.png "Order Swagger")
 
 ## 5. API Testing
-Import ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test API
+Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test API
 
 ## 6. Reference
 [OpenTelemetry in Java](https://opentelemetry.io/docs/instrumentation/java/automatic)\
