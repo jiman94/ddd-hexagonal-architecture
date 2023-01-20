@@ -127,7 +127,7 @@ $ docker run -d --name jaeger \
   -p 9411:9411 \
   jaegertracing/all-in-one:latest
 ```
-3.2. Access to the link http://localhost:16686 to test the Jaeger UI\
+3.2. Access to the link http://localhost:16686 to test the Jaeger UI
 
 3.3. Automatic instrumentation with Java uses a Java agent JAR (opentelemetry-javaagent.jar the latest version download from https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases
 ```
@@ -135,10 +135,10 @@ $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar \
      -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication \
      -Dotel.traces.exporter=jaeger \
      -Dotel.metrics.exporter=prometheus \
-     -Dotel.traces.exporter=logging \
+     -Dotel.logs.exporter=logging \
      -jar target/dddhexagonalarchitecture-0.0.1.jar
      
- $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -jar target/dddhexagonalarchitecture-0.0.1.jar
+ $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -Dotel.metrics.exporter=prometheus -Dotel.logs.exporter=logging -jar target/dddhexagonalarchitecture-0.0.1.jar
 ```
 **3.4. Search Logs**
 ![Jaeger Search!](/assets/images/jaeger_ui.png "Jaeger Search")
