@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "5cddaba1-07d1-4b8e-8574-da160697c2f6",
+		"name": "DDD Hexagonal Architecture",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Matcha Ice Cream\",\r\n\t\"description\": \"Green tea powder, coffee cream, whole milk, fat milk made from Viet Nam\"\r\n, \n\t\"total\": 2}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/v1.0/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v1.0",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9090/v1.0/orders/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v1.0",
+						"orders",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
