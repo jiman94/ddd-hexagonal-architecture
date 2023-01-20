@@ -31,10 +31,7 @@ Because of this decoupling, it’s much easier to test the business logic in iso
     │       └───output                                      
     │               OrderEventPublisher.java                
     │               OrderPersistence.java                   
-    │                                                       
-    ├───common                                              
-    │       Common.java                                     
-    │                                                       
+    │                                          
     ├───domain                                              
     │   ├───event                                           
     │   │       OrderCreatedEvent.java                      
