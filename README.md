@@ -17,6 +17,86 @@ Because of this decoupling, it’s much easier to test the business logic in iso
 
 ![DDD & Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "DDD & Hexagonal Architecture")
 
+**Project Structure**
+```
+└───dddhexagonalarchitecture                                
+    │   DDDHexagonalArchitectureApplication.java            
+    │                                                       
+    ├───application                                         
+    │   └───ports                                           
+    │       ├───input                                       
+    │       │       CreateOrderUseCase.java                 
+    │       │       GetOrderUseCase.java                    
+    │       │                                               
+    │       └───output                                      
+    │               OrderEventPublisher.java                
+    │               OrderPersistence.java                   
+    │                                                       
+    ├───common                                              
+    │       Common.java                                     
+    │                                                       
+    ├───domain                                              
+    │   ├───event                                           
+    │   │       OrderCreatedEvent.java                      
+    │   │                                                   
+    │   ├───exception                                       
+    │   │       OrderNotFound.java                          
+    │   │                                                   
+    │   ├───model                                           
+    │   │       Order.java                                  
+    │   │                                                   
+    │   └───service                                         
+    │           OrderService.java                           
+    │                                                       
+    └───infrastructure                                      
+        └───adapters                                        
+            ├───config                                      
+            │       BeanConfiguration.java                  
+            │                                               
+            ├───input                                       
+            │   ├───eventlistener                           
+            │   │       OrderEventListenerAdapter.java      
+            │   │                                           
+            │   ├───grpc                                    
+            │   │   ├───data                                
+            │   │   └───mapper                              
+            │   └───rest                                    
+            │       │   OrderRestAdapter.java               
+            │       │                                       
+            │       ├───data                                
+            │       │   ├───request                         
+            │       │   │       OrderCreateRequest.java     
+            │       │   │                                   
+            │       │   └───response                        
+            │       │           OrderCreateResponse.java    
+            │       │           OrderQueryResponse.java     
+            │       │                                       
+            │       └───mapper                              
+            │               OrderRestMapper.java            
+            │                                               
+            └───output                                      
+                ├───customizedexception                     
+                │   │   CustomizedExceptionAdapter.java     
+                │   │                                       
+                │   └───data                                
+                │       └───response                        
+                │               ExceptionResponse.java      
+                │                                           
+                ├───eventpublisher                          
+                │       OrderEventPublisherAdapter.java     
+                │                                           
+                └───persistence                             
+                    │   OrderPersistenceAdapter.java        
+                    │                                       
+                    ├───entity                              
+                    │       OrderEntity.java                
+                    │                                       
+                    ├───mapper                              
+                    │       OrderPersistenceMapper.java     
+                    │                                       
+                    └───repository                          
+                            OrderRepository.java                                    
+```
 ## 3. Logging and Monitoring Solution
 The 3 pillars of observability: **logs**, **metrics** and **traces**
 - **Logs** are files that record events, warnings and errors as they occur within a software environment
