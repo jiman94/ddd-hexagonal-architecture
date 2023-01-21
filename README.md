@@ -2,7 +2,7 @@
 An example approach for designing and implementing a **DDD Hexagonal Architecture** with **Spring Boot**
 
 ## 1. Domain Driven Design
-**Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. Micro-services are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients\
+**Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. Micro-services are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients
 
 ![DDD!](/assets/images/ddd.png "Domain Driven Design")
 
@@ -19,80 +19,95 @@ Because of this decoupling, it’s much easier to test the business logic in iso
 
 **Project Structure**
 ```
-└───dddhexagonalarchitecture                                
-    │   DDDHexagonalArchitectureApplication.java            
-    │                                                       
-    ├───application                                         
-    │   └───ports                                           
-    │       ├───input                                       
-    │       │       CreateOrderUseCase.java                 
-    │       │       GetOrderUseCase.java                    
-    │       │                                               
-    │       └───output                                      
-    │               OrderEventPublisher.java                
-    │               OrderPersistence.java                   
-    │                                          
-    ├───domain                                              
-    │   ├───event                                           
-    │   │       OrderCreatedEvent.java                      
-    │   │                                                   
-    │   ├───exception                                       
-    │   │       OrderNotFound.java                          
-    │   │                                                   
-    │   ├───model                                           
-    │   │       Order.java                                  
-    │   │                                                   
-    │   └───service                                         
-    │           OrderService.java                           
-    │                                                       
-    └───infrastructure                                      
-        └───adapters                                        
-            ├───config                                      
-            │       BeanConfiguration.java                  
-            │                                               
-            ├───input                                       
-            │   ├───eventlistener                           
-            │   │       OrderEventListenerAdapter.java      
-            │   │                                           
-            │   ├───grpc                                    
-            │   │   ├───data                                
-            │   │   └───mapper                              
-            │   └───rest                                    
-            │       │   OrderRestAdapter.java               
-            │       │                                       
-            │       ├───data                                
-            │       │   ├───request                         
-            │       │   │       OrderCreateRequest.java     
-            │       │   │                                   
-            │       │   └───response                        
-            │       │           OrderCreateResponse.java    
-            │       │           OrderQueryResponse.java     
-            │       │                                       
-            │       └───mapper                              
-            │               OrderRestMapper.java            
-            │                                               
-            └───output                                      
-                ├───customizedexception                     
-                │   │   CustomizedExceptionAdapter.java     
-                │   │                                       
-                │   └───data                                
-                │       └───response                        
-                │               ExceptionResponse.java      
-                │                                           
-                ├───eventpublisher                          
-                │       OrderEventPublisherAdapter.java     
-                │                                           
-                └───persistence                             
-                    │   OrderPersistenceAdapter.java        
-                    │                                       
-                    ├───entity                              
-                    │       OrderEntity.java                
-                    │                                       
-                    ├───mapper                              
-                    │       OrderPersistenceMapper.java     
-                    │                                       
-                    └───repository                          
-                            OrderRepository.java                                    
+└───dddhexagonalarchitecture                                      
+    │   DDDHexagonalArchitectureApplication.java                  
+    │                                                             
+    ├───application                                               
+    │   └───ports                                                 
+    │       ├───input                                             
+    │       │       CreateOrderUseCase.java                       
+    │       │       CreateRestaurantUseCase.java                  
+    │       │       GetOrderUseCase.java                          
+    │       │       GetRestaurantUseCase.java                     
+    │       │                                                     
+    │       └───output                                            
+    │               OrderEventPublisher.java                      
+    │               OrderPersistence.java                         
+    │               RestaurantPersistence.java                    
+    │                                                             
+    ├───domain                                                    
+    │   ├───event                                                 
+    │   │       OrderCreatedEvent.java                            
+    │   │                                                         
+    │   ├───exception                                             
+    │   │       OrderNotFound.java                                
+    │   │       RestaurantNotFound.java                           
+    │   │                                                         
+    │   ├───model                                                 
+    │   │       Order.java                                        
+    │   │       Restaurant.java                                   
+    │   │                                                         
+    │   └───service                                               
+    │           OrderService.java                                 
+    │           RestaurantService.java                            
+    │                                                             
+    └───infrastructure                                            
+        └───adapters                                              
+            ├───config                                            
+            │       BeanConfiguration.java                        
+            │                                                     
+            ├───input                                             
+            │   ├───eventlistener                                 
+            │   │       OrderEventListenerAdapter.java            
+            │   │                                                 
+            │   ├───grpc                                          
+            │   │   ├───data                                      
+            │   │   └───mapper                                    
+            │   └───rest                                          
+            │       │   OrderRestAdapter.java                     
+            │       │   RestaurantRestAdapter.java                
+            │       │                                             
+            │       ├───data                                      
+            │       │   ├───request                               
+            │       │   │       OrderCreateRequest.java           
+            │       │   │       RestaurantCreateRequest.java      
+            │       │   │                                         
+            │       │   └───response                              
+            │       │           OrderCreateResponse.java          
+            │       │           OrderQueryResponse.java           
+            │       │           RestaurantCreateResponse.java     
+            │       │           RestaurantQueryResponse.java      
+            │       │                                             
+            │       └───mapper                                    
+            │               OrderRestMapper.java                  
+            │               RestaurantRestMapper.java             
+            │                                                     
+            └───output                                            
+                ├───customizedexception                           
+                │   │   CustomizedExceptionAdapter.java           
+                │   │                                             
+                │   └───data                                      
+                │       └───response                              
+                │               ExceptionResponse.java            
+                │                                                 
+                ├───eventpublisher                                
+                │       OrderEventPublisherAdapter.java           
+                │                                                 
+                └───persistence                                   
+                    │   OrderPersistenceAdapter.java              
+                    │   RestaurantPersistenceAdapter.java         
+                    │                                             
+                    ├───entity                                    
+                    │       OrderEntity.java                      
+                    │       RestaurantEntity.java                 
+                    │                                             
+                    ├───mapper                                    
+                    │       OrderPersistenceMapper.java           
+                    │       RestaurantPersistenceMapper.java      
+                    │                                             
+                    └───repository                                
+                            OrderRepository.java                  
+                            RestaurantRepository.java                                                                                           
 ```
 ## 3. Logging and Monitoring Solution
 The 3 pillars of observability: **logs**, **metrics** and **traces**
@@ -127,7 +142,13 @@ $ docker run -d --name jaeger \
   -p 9411:9411 \
   jaegertracing/all-in-one:latest
 ```
-3.2. Access to the link http://localhost:16686 to test the Jaeger UI
+Access to the link http://localhost:16686 to test the Jaeger UI
+
+3.2. Install & Run Prometheus
+```
+$ docker run -d -p 9090:9090 --user 996:996 --net=host -v ./assets/prometheus/prometheus.yml -v ./data/prometheus prom/prometheus --config.file="./assets/prometheus/prometheus.yml" --storage.tsdb.path="./data/prometheus"
+```
+Access to the link http://localhost:9090 to test the Prometheus
 
 3.3. Automatic instrumentation with Java uses a Java agent JAR (opentelemetry-javaagent.jar the latest version download from https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases
 ```
@@ -138,7 +159,7 @@ $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar \
      -Dotel.logs.exporter=logging \
      -jar target/dddhexagonalarchitecture-0.0.1.jar
      
- $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -Dotel.metrics.exporter=prometheus -Dotel.logs.exporter=logging -jar target/dddhexagonalarchitecture-0.0.1.jar
+$ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -Dotel.metrics.exporter=prometheus -Dotel.logs.exporter=logging -jar target/dddhexagonalarchitecture-0.0.1.jar
 ```
 **3.4. Search Logs**
 ![Jaeger Search!](/assets/images/jaeger_ui.png "Jaeger Search")
@@ -154,7 +175,7 @@ To have springdoc-openapi automatically generate the OpenAPI 3 specification doc
 ```
 
 After running the application go to the following address to see the API documentation
-http://localhost:9090/swagger-ui.html
+http://localhost:2706/swagger-ui.html
 
 ![The Order Swagger!](/assets/images/order_swagger.png "Order Swagger")
 

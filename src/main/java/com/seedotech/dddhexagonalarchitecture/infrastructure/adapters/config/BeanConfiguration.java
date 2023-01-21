@@ -1,10 +1,14 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.config;
 
 import com.seedotech.dddhexagonalarchitecture.domain.service.OrderService;
+import com.seedotech.dddhexagonalarchitecture.domain.service.RestaurantService;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventpublisher.OrderEventPublisherAdapter;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.OrderPersistenceAdapter;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.RestaurantPersistenceAdapter;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper.OrderPersistenceMapper;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper.RestaurantPersistenceMapper;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.repository.OrderRepository;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.repository.RestaurantRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +22,11 @@ public class BeanConfiguration {
     }
 
     @Bean
+    public RestaurantPersistenceAdapter restaurantPersistenceAdapter(RestaurantRepository restaurantRepository, RestaurantPersistenceMapper restaurantPersistenceMapper) {
+        return new RestaurantPersistenceAdapter(restaurantRepository, restaurantPersistenceMapper);
+    }
+
+    @Bean
     public OrderEventPublisherAdapter orderEventPublisherAdapter(ApplicationEventPublisher applicationEventPublisher) {
         return new OrderEventPublisherAdapter(applicationEventPublisher);
     }
@@ -25,5 +34,10 @@ public class BeanConfiguration {
     @Bean
     public OrderService orderService(OrderPersistenceAdapter orderPersistenceAdapter, OrderEventPublisherAdapter orderEventPublisherAdapter) {
         return new OrderService(orderPersistenceAdapter, orderEventPublisherAdapter);
+    }
+
+    @Bean
+    public RestaurantService restaurantService(RestaurantPersistenceAdapter restaurantPersistenceAdapter) {
+        return new RestaurantService(restaurantPersistenceAdapter);
     }
 }
