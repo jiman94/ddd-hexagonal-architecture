@@ -4,7 +4,6 @@ import com.seedotech.dddhexagonalarchitecture.common.Common;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Builder
 @Getter

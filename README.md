@@ -2,18 +2,40 @@
 An example approach for designing and implementing a **DDD Hexagonal Architecture** with **Spring Boot**
 
 ## 1. Domain Driven Design
-**Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. Micro-services are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients
+**Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. **Micro-services** are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients
 
 ![DDD!](/assets/images/ddd.png "Domain Driven Design")
 
 ## 2. DDD & Hexagonal Architecture
-**Hexagonal** architecture is an alternative to the layered architectural style. The hexagonal architecture style organizes the logical view in a way that places the business logic at the center. Instead of the presentation layer, the application has one or more inbound **adapters** that handle requests from the outside by invoking the business logic. Similarly, instead of a data persistence tier, the application has one or more outbound **adapters** that are invoked by the business logic and invoke external applications. A key characteristic and benefit of this architecture is that the business logic doesn’t depend on the **adapters**. Instead, they depend upon it
+**Hexagonal Architecture** creates dependency rules can decouple the layers. The hexagonal architecture is also called the **Ports** and **Adapters**. The outer layers may only depend on the inner layers, and the inner layers should not rely on the outer ones. Each layer is defined as follows:
 
-The business logic has one or more **ports**. A **port** defines a set of operations and is how the business logic interacts with what’s outside of it. In Java, for example, a **port** is often a Java interface. There are two kinds of **ports**: inbound and outbound **ports**. An inbound **port** is an API exposed by the business logic, which enables it to be invoked by external applications. An example of an inbound **port** is a service interface, which defines a service’s public methods. An outbound **port** is how the business logic invokes external systems. An example of an output **port** is a repository interface, which defines a collection of data access operations
+**2.1. Infrastructure Layer**\
+The **Infrastructure Layer** contains code interfaces with application infrastructure – controllers, UI, persistence, and gateways to external systems. A web framework or persistence library will provide many of the objects in this layer. Concretions of domain repositories are placed in this layer, while the virtual interfaces are defined in the domain layer
 
-An important benefit of the hexagonal architectural style is that it decouples the business logic from the presentation and data access logic in the **adapters**. The business logic doesn’t depend on either the presentation logic or the data access logic
+**2.2. Application Layer**\
+The **Application Layer** provides an API for all functionality provided by the application. It accepts commands from the client (web, API, or CLI) and translates them into values understood by the domain layer. For example, a RegisterUser service would accept a Data Transfer Object containing a new user's credentials and delegate responsibility for creating a user to the domain layer
 
-Because of this decoupling, it’s much easier to test the business logic in isolation. Another benefit is that it more accurately reflects the architecture of a modern application. The business logic can be invoked via multiple **adapters**, each of which implements a particular API or UI. The business logic can also invoke multiple **adapters**, each one of which invokes a different external system. Hexagonal architecture is a great way to describe the architecture of each service in a microservice architecture
+**2.3. Domain Layer**\
+The **Domain Layer** contains any **business domain logic - domain service**, **domain model**, **domain exception**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
+
+**Port**
+It is an interface for a task. The toolkit ports are designed to work on their own. For example: you can use the http_server module without importing the templates one, and the other way around (taking only the dependencies you need for your application).
+Each **Port** may have different **implementations** (**Adapters**)
+**Ports** *cannot be used by themselves* and in their place, an **adapter** *implementing* them should be added to the list of dependencies
+
+**Adapter**
+They are implementations of a functionality (**Port**) for a given **product/technology/use case**. Clients should only use **ports**' code (*not* **Adapters** *specific code*), *this makes them easy to switch among different adapters with minimum impact*
+**Adapters** are independent of each other, and you can use **several adapters** for the **same port** in a **single application**. For example, you could use many Template adapters to support several template engines
+**Adapter** names must start with their Port name
+
+**Example**:
+
+| PORT | ADAPTERS |
+| --- | --- |
+| HTTP Server | Netty, Netty Epoll, Jetty, Servlet |
+| HTTP Client | Jetty |
+| Templates | Pebble, FreeMarker |
+| Serialization Formats | JSON, YAML, CSV, XML, TOML |
 
 ![DDD & Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "DDD & Hexagonal Architecture")
 
@@ -120,7 +142,7 @@ This demo application demonstrates how to monitor a Java Spring Boot application
 - [Jaeger](https://www.jaegertracing.io/) - Distributed tracing backend
 - [Prometheus](https://prometheus.io/) - Metrics and alerting backend
 - [Loki](https://grafana.com/oss/loki/) - Logs aggregation system
-- [Grafana](https://grafana.com/) - Visualize all of our observability data
+- [Grafana](https://grafana.com/) - Visualize all of observability data
 
 **Logging and Monitoring Solution**\
 ![Logging and Monitoring Solution!](/assets/images/logging_monitoring_solution.png "Logging and Monitoring Solution")
