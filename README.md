@@ -6,7 +6,7 @@ An example approach for designing and implementing a **DDD Hexagonal Architectur
 
 ![DDD!](/assets/images/ddd.png "Domain Driven Design")
 
-## 2. DDD & Hexagonal Architecture
+## 2. Hexagonal Architecture
 **Hexagonal Architecture** creates dependency rules can decouple the layers. The hexagonal architecture is also called the **Ports** and **Adapters**. The outer layers may only depend on the inner layers, and the inner layers should not rely on the outer ones. Each layer is defined as follows:
 
 **2.1. Infrastructure Layer**\
@@ -37,7 +37,7 @@ They are implementations of a functionality (**Port**) for a given **product/tec
 | Templates | Pebble, FreeMarker |
 | Serialization Formats | JSON, YAML, CSV, XML, TOML |
 
-![DDD & Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "DDD & Hexagonal Architecture")
+![Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "Hexagonal Architecture")
 
 **Project Structure**
 ```
