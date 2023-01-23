@@ -206,7 +206,7 @@ http://localhost:2706/swagger-ui.html
 Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test API
 
 ## 6. GraphQL
-Imagine you have an API frontend implemented with GraphQL for the Order microservice. As shown in the below image, there are different services in your Order backend microservice that are accessible via different technologies. For example, user profile data is stored in a highly scalable NoSQL table. Orders are accessed through a REST API. The current inventory stock is checked through an Inventory Service. And the pricing information is in an SQL database
+GraphQL is a query language to retrieve data from a server. It is an alternative to REST, SOAP or gRPC. Imagine you have an API frontend implemented with GraphQL for the Order microservice. As shown in the below image, there are different services in your Order backend microservice that are accessible via different technologies. For example, user profile data is stored in a highly scalable NoSQL table. Orders are accessed through a REST API. The current inventory stock is checked through an Inventory Service. And the pricing information is in an SQL database
 
 ![GraphQL!](/assets/images/graphql.png "GraphQL")
 
