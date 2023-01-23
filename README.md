@@ -208,7 +208,7 @@ Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collectio
 ## 6. GraphQL
 Imagine you have an API frontend implemented with GraphQL for the Order microservice. As shown in the below image, there are different services in your Order backend microservice that are accessible via different technologies. For example, user profile data is stored in a highly scalable NoSQL table. Orders are accessed through a REST API. The current inventory stock is checked through an Inventory Service. And the pricing information is in an SQL database
 
-![GraphQL!](/assets/images/graphQL.png "GraphQL")
+![GraphQL!](/assets/images/graphql.png "GraphQL")
 
 Without using GraphQL, client applications must make multiple separate calls to each one of these services (or using an **API Composition/Aggregator** backend). Because each service is exposed through different API endpoints, the complexity of accessing data from the client side increases significantly. In order to get the data, you have to **make multiple calls**. In some cases, you might over fetch data as the data source would send you an entire payload including data you might not need. In some other circumstances, you might under fetch data as a single data source would not have all your required data
 
