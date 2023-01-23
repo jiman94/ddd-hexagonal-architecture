@@ -1,5 +1,5 @@
 # Domain Driven Design and Hexagonal Architecture
-An example approach for designing and implementing a **DDD Hexagonal Architecture** with **Spring Boot**
+An example approach for designing and implementing a **DDD Hexagonal Architecture** with **Spring Boot** with different input adapters like **REST** or **GraphQL**
 
 ## 1. Domain Driven Design
 **Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. **Micro-services** are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients
@@ -9,14 +9,16 @@ An example approach for designing and implementing a **DDD Hexagonal Architectur
 ## 2. Hexagonal Architecture
 **Hexagonal Architecture** creates dependency rules can decouple the layers. The hexagonal architecture is also called the **Ports** and **Adapters**. The outer layers may only depend on the inner layers, and the inner layers should not rely on the outer ones. Each layer is defined as follows:
 
-**2.1. Infrastructure Layer**\
+### 2.1. Infrastructure Layer
 The **Infrastructure Layer** contains code interfaces with application infrastructure – controllers, UI, persistence, and gateways to external systems. A web framework or persistence library will provide many of the objects in this layer. Concretions of domain repositories are placed in this layer, while the virtual interfaces are defined in the domain layer
 
-**2.2. Application Layer**\
+### 2.2. Application Layer
 The **Application Layer** provides an API for all functionality provided by the application. It accepts commands from the client (web, API, or CLI) and translates them into values understood by the domain layer. For example, a RegisterUser service would accept a Data Transfer Object containing a new user's credentials and delegate responsibility for creating a user to the domain layer
 
-**2.3. Domain Layer**\
+### 2.3. Domain Layer
 The **Domain Layer** contains any **business domain logic - domain service**, **domain model**, **domain exception**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
+
+![Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "Hexagonal Architecture")
 
 **Port**
 It is an interface for a task. The toolkit ports are designed to work on their own. For example: you can use the http_server module without importing the templates one, and the other way around (taking only the dependencies you need for your application).
@@ -36,8 +38,6 @@ They are implementations of a functionality (**Port**) for a given **product/tec
 | HTTP Client | Jetty |
 | Templates | Pebble, FreeMarker |
 | Serialization Formats | JSON, YAML, CSV, XML, TOML |
-
-![Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "Hexagonal Architecture")
 
 **Project Structure**
 ```
@@ -164,24 +164,25 @@ $ docker run -d --name jaeger \
   -p 9411:9411 \
   jaegertracing/all-in-one:latest
 ```
-Access to the link http://localhost:16686 to test the Jaeger UI
+Access to the links:
+- http://localhost:16686 to test the Jaeger UI
+- http://localhost:9464/metrics to test the Prometheus exporter server
 
 3.2. Install & Run Prometheus
 ```
-$ docker run -d -p 9090:9090 --user 996:996 --net=host -v ./assets/prometheus/prometheus.yml -v ./data/prometheus prom/prometheus --config.file="./assets/prometheus/prometheus.yml" --storage.tsdb.path="./data/prometheus"
+$ docker run -d --name prometheus -p 9090:9090 prom/prometheus:latest
 ```
 Access to the link http://localhost:9090 to test the Prometheus
 
 3.3. Automatic instrumentation with Java uses a Java agent JAR (opentelemetry-javaagent.jar the latest version download from https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases
 ```
+$ export OTEL_METRICS_EXPORTER=otlp
 $ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar \
      -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication \
      -Dotel.traces.exporter=jaeger \
      -Dotel.metrics.exporter=prometheus \
      -Dotel.logs.exporter=logging \
      -jar target/dddhexagonalarchitecture-0.0.1.jar
-     
-$ java -javaagent:./assets/tracing/opentelemetry-javaagent.jar -Dotel.resource.attributes=service.name=DDDHexagonalArchitectureApplication -Dotel.traces.exporter=jaeger -Dotel.metrics.exporter=prometheus -Dotel.logs.exporter=logging -jar target/dddhexagonalarchitecture-0.0.1.jar
 ```
 **3.4. Search Logs**
 ![Jaeger Search!](/assets/images/jaeger_ui.png "Jaeger Search")
@@ -204,6 +205,47 @@ http://localhost:2706/swagger-ui.html
 ## 5. API Testing
 Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test API
 
-## 6. Reference
+## 6. GraphQL
+Imagine you have an API frontend implemented with GraphQL for the Order microservice. As shown in the below image, there are different services in your Order backend microservice that are accessible via different technologies. For example, user profile data is stored in a highly scalable NoSQL table. Orders are accessed through a REST API. The current inventory stock is checked through an Inventory Service. And the pricing information is in an SQL database
+
+![GraphQL!](/assets/images/graphQL.png "GraphQL")
+
+Without using GraphQL, client applications must make multiple separate calls to each one of these services (or using an **API Composition/Aggregator** backend). Because each service is exposed through different API endpoints, the complexity of accessing data from the client side increases significantly. In order to get the data, you have to **make multiple calls**. In some cases, you might over fetch data as the data source would send you an entire payload including data you might not need. In some other circumstances, you might under fetch data as a single data source would not have all your required data
+
+A GraphQL API **combines the data from all these different services** into a single payload that the client defines based on its needs. For example, a smartphone has a smaller screen than a desktop application. A smartphone application might require less data. The data is retrieved from multiple data sources automatically. The client just sees a single constructed payload. This payload might be receiving user profile data from MongoDB, or order details from Order Service. Or it could involve the injection of specific fields with inventory availability and price data from Inventory Service and PostgreSQL DB
+
+When modernizing frontend APIs with GraphQL, you can build applications faster because your frontend developers don’t need to wait for backend service teams to create new APIs for integration. GraphQL simplifies data access by interacting with data from multiple data sources using a single API. This reduces the number of API requests and network traffic, which results in improved application performance. Furthermore, [GraphQL subscriptions](https://aws.amazon.com/graphql/graphql-subscriptions-real-time) enable two-way communication between the backend and client. It supports publishing updates to data in real time to subscribed clients. You can create engaging applications in real time with use cases such as updating sports scores, bidding statuses, and more
+
+### GraphQL API Testing
+
+Access to http://localhost:2706/graphiql?path=/graphql and type the following queries to get data
+
+- Query List
+
+```graphql
+{
+  orders {
+    id
+    name
+    description
+    total
+  }
+}
+```
+
+- Query Specified Order by ID
+
+```graphql
+{
+  order(id: "1") {
+    id
+    name
+    description
+    total
+  }
+}
+```
+
+## 7. Reference
 [OpenTelemetry in Java](https://opentelemetry.io/docs/instrumentation/java/automatic)\
 [Using domain analysis to model microservices](https://docs.microsoft.com/en-us/azure/architecture/microservices/model/domain-analysis)

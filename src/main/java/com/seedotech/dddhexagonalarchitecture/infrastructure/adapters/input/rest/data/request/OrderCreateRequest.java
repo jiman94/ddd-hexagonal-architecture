@@ -1,10 +1,9 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request;
 
 import com.seedotech.dddhexagonalarchitecture.common.Common;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Builder
 @Getter

@@ -7,12 +7,11 @@ import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.OrderCreateResponse;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.OrderQueryResponse;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.mapper.OrderRestMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1.0")
