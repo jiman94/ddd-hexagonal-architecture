@@ -232,8 +232,21 @@ Access to http://localhost:2706/graphiql and type the following queries to get d
 - Create a New Order
 
 ```graphql
-mutation {createOrder(orderGraphQLInput: {name: "Cake" description: "Sweet Cake" total: 100}) {id name description total}}
+mutation {
+    createOrder(orderGraphQLInput: {
+        name: "Cake" 
+        description: "Sweet Cake"
+        total: 100
+    }) {
+        id
+        name
+        description
+        total
+    }
+}
 ```
+
+![GraphQL - Create Order!](/assets/images/graphql_create_order.png "GraphQL - Create Order")
 
 - Query Specified Order by ID
 
@@ -248,6 +261,59 @@ mutation {createOrder(orderGraphQLInput: {name: "Cake" description: "Sweet Cake"
 }
 ```
 
-## 7. Reference
+![GraphQL - Get Order!](/assets/images/graphql_get_order.png "GraphQL - Get Order")
+
+## 7. REST API vs GraphQL
+| No | GraphQL | REST |
+| --- | --- | --- |
+| 1 | GraphQL is an application layer server-side technology which is developed by Facebook for executing queries with existing data | REST is a software architectural style that defines a set of constraints for creating Web services |
+| 2 | It follows client-driven architecture | It follows server-driven architecture |
+| 3 | GraphQL can be organized in terms of a schema | REST can be arranged in terms of endpoints |
+| 4 | GraphQL is a growing community | REST is a large community |
+| 5 | The development speed in GraphQL is fast | The development speed in REST is Slow |
+| 6 | The learning curve in GraphQL is difficult | The learning curve in REST is moderate |
+| 7 | The identity is separated from how you fetch it | The endpoint you call in REST is the identity of an object |
+| 8 | In GraphQL,  the server determines available resources | The shape and size of the resource are determined by the server in REST |
+| 9 | GraphQL provides high consistency across all platforms | It is hard to get consistency across all platforms |
+| 10 | The message format for GraphQL mutations should be a string | The message format for REST mutations can be anything |
+| 11 | It is strongly typed | It is weakly typed |
+| 12 | GraphQL API endpoints are single | REST API endpoints are multiple |
+| 13 | It uses metadata for query validation | It does not have machine-readable metadata cacheable |
+| 14 | Provides consistent and high-quality UX across all operating systems | It is difficult to get consistency across all operating systems |
+| 15 | Partners of GraphQL require API customization | It offers flexible public API that can easily enable new applications |
+
+### 7.1. GraphQL Pros/Cons
+| No | Advantages of GraphQL | Disadvantages of GraphQL |
+| --- | --- | --- |
+| 1 | It provides declarative query language which is not imperative | Lack of resources on the backend part |
+| 2 | It is hierarchical and product-centric | Missing design pattern for a complex app |
+| 3 | GraphQL is strongly typed. It means queries are executed within the context of a particular system | Performance issues with complex queries |
+| 4 | Queries in GraphQL are encoded in the client not in the server | Overkill for small applications |
+| 5 | It has all the features of the application layer of the OSI model | It does not base on the HTTP caching methods that enable storing request content |
+| 6 | GraphQL provides a human-readable query | You need to learn the GraphQL Schema Definition Language before you implement GraphQL strategies |
+| 7 | In GraphQL it is easy to deal with many databases | GraphQL uses a single endpoint instead of following the HTTP caching |
+| 8 | You can fetch data with a single API call | It is not a good solution for simple applications as it can add complexity |
+| 9 | It helps you with query batching and caching |  |
+| 10 | Tailoring requests to your needs |
+| 11 | It helps you to discover the schema in the appropriate format |  |
+| 12 | GraphQL automatically keeps documentation in sync with API changes |  |
+| 13 | API evolution is possible without versioning |  |
+| 14 | It can be used for rapid application prototyping |  |
+| 15 | GraphQL fields can be shared to a higher component level for reuse |  |
+| 16 | It allows you to select which functions to expose and how they work |  |
+
+### 7.2. REST API Pros/Cons
+| No | Advantages of REST API | Disadvantages of REST API |
+| --- | --- | --- |
+| 1 | It enables you to scale software without any difficulty | REST does not maintain states of a previous interaction between client and server |
+| 2 | You can perform migration from one server to another with ease | If you have to retrieve any data from two endpoints |  you need to send two separate requests to API |
+| 3 | The protocol becomes easy for developments across different projects | There is no way to get limited fields |
+| 4 | REST API offers the opportunity to try various project environments while developing it | Manipulating nested resources is not possible |
+| 5 | REST is very easy to build and adapt | Poor data searching facility |
+| 6 | You can create process instances explicitly | Query validation is not available |
+| 7 | The client machine does not need routing information | It does not handle API additions |  deprecations |  and changes |
+| 8 | Developers can build API that can meet a user-specific need | There is no tooling or framework guidance |
+
+## 8. Reference
 [OpenTelemetry in Java](https://opentelemetry.io/docs/instrumentation/java/automatic)\
 [Using domain analysis to model microservices](https://docs.microsoft.com/en-us/azure/architecture/microservices/model/domain-analysis)
