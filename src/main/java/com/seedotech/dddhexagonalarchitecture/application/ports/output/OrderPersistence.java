@@ -9,5 +9,4 @@ public interface OrderPersistence {
     Order saveOrder(Order order);
 
     Optional<Order> getOrderById(Long id);
-
 }

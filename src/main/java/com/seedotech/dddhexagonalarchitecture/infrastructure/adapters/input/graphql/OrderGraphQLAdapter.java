@@ -4,6 +4,8 @@ import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateOrde
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetOrderUseCase;
 import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
 import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.data.request.OrderGraphQLInput;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.mapper.OrderGraphQLMapper;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.OrderCreateRequest;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.mapper.OrderRestMapper;
 import graphql.schema.DataFetchingEnvironment;
@@ -25,16 +27,14 @@ public class OrderGraphQLAdapter {
 
     private final GetOrderUseCase getOrderUseCase;
 
-    private final OrderRestMapper orderRestMapper;
+    private final OrderGraphQLMapper orderGraphQLMapper;
 
     @MutationMapping
-    public Order createOrder(@Argument OrderCreateRequest orderCreateRequest) {
+    public Order createOrder(@Argument OrderGraphQLInput orderGraphQLInput) {
         // Request to domain
-        Order order = orderRestMapper.toOrder(orderCreateRequest);
+        Order order = orderGraphQLMapper.toOrder(orderGraphQLInput);
 
         order = createOrderUseCase.createOrder(order);
-
-        // Domain to response
         return order;
     }
 
@@ -45,7 +45,7 @@ public class OrderGraphQLAdapter {
     }
 
 //    @QueryMapping
-//    public Order order(@Argument Long id, DataFetchingEnvironment environment) {
+//    public Iterable<Department> order(@Argument Long id, DataFetchingEnvironment environment) {
 //        Specification<Order> spec = byId(id);
 //        DataFetchingFieldSelectionSet selectionSet = environment.getSelectionSet();
 //        if (selectionSet.contains("restaurants"))

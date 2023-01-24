@@ -5,18 +5,16 @@ type Order {
     total: Int
 }
 
-input OrderInput {
+input OrderGraphQLInput {
     name: String!,
     description: String!,
     total: Int!
 }
 
 type Query {
-    orders: [Order]
     order(id: ID!): Order
 }
 
 type Mutation {
-    createOrder(order: OrderInput): Order!
-    getOrder(id: ID!): Order!
+    createOrder(orderGraphQLInput: OrderGraphQLInput): Order!
 }
