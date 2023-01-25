@@ -1,4 +1,4 @@
-package com.seedotech.dddhexagonalarchitecture.domain.exception;
+package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception.exception;
 
 public class OrderNotFound extends RuntimeException {
 

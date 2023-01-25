@@ -16,7 +16,7 @@ The **Infrastructure Layer** contains code interfaces with application infrastru
 The **Application Layer** provides an API for all functionality provided by the application. It accepts commands from the client (web, API, or CLI) and translates them into values understood by the domain layer. For example, a RegisterUser service would accept a Data Transfer Object containing a new user's credentials and delegate responsibility for creating a user to the domain layer
 
 ### 2.3. Domain Layer
-The **Domain Layer** contains any **business domain logic - domain service**, **domain model**, **domain exception**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
+The **Domain Layer** contains any **domain model**, **business logic**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
 
 ![Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "Hexagonal Architecture")
 
@@ -44,33 +44,25 @@ They are implementations of a functionality (**Port**) for a given **product/tec
 │   DDDHexagonalArchitectureApplication.java               
 │                                                          
 ├───application                                            
-│   └───ports                                              
-│       ├───input                                          
-│       │       CreateOrderUseCase.java                    
-│       │       CreateRestaurantUseCase.java               
-│       │       GetOrderUseCase.java                       
-│       │       GetRestaurantUseCase.java                  
-│       │                                                  
-│       └───output                                         
-│               OrderEventPublisher.java                   
-│               OrderPersistence.java                      
-│               RestaurantPersistence.java                 
-│                                                          
-├───domain                                                 
-│   ├───event                                              
-│   │       OrderCreatedEvent.java                         
-│   │                                                      
-│   ├───exception                                          
-│   │       OrderNotFound.java                             
-│   │       RestaurantNotFound.java                        
-│   │                                                      
-│   ├───model                                              
-│   │       Order.java                                     
-│   │       Restaurant.java                                
+│   ├───ports                                              
+│   │   ├───input                                          
+│   │   │       CreateOrderUseCase.java                    
+│   │   │       CreateRestaurantUseCase.java               
+│   │   │       GetOrderUseCase.java                       
+│   │   │       GetRestaurantUseCase.java                  
+│   │   │                                                  
+│   │   └───output                                         
+│   │           OrderEventPublisher.java                   
+│   │           OrderPersistence.java                      
+│   │           RestaurantPersistence.java                 
 │   │                                                      
 │   └───service                                            
 │           OrderService.java                              
 │           RestaurantService.java                         
+│                                                          
+├───domain                                                 
+│       Order.java                                         
+│       Restaurant.java                                    
 │                                                          
 └───infrastructure                                         
     └───adapters                                           
@@ -78,22 +70,20 @@ They are implementations of a functionality (**Port**) for a given **product/tec
         │       BeanConfiguration.java                     
         │                                                  
         ├───input                                          
-        │   ├───eventlistener                              
-        │   │       OrderEventListenerAdapter.java         
+        │   ├───eventsourcing                              
+        │   │   └───eventlistener                          
+        │   │           OrderEventListenerAdapter.java     
         │   │                                              
         │   ├───graphql                                    
         │   │   │   OrderGraphQLAdapter.java               
         │   │   │                                          
         │   │   ├───data                                   
         │   │   │   └───request                            
-        │   │   │           OrderGraphQLInput.java         
+        │   │   │           OrderInput.java                
         │   │   │                                          
         │   │   └───mapper                                 
         │   │           OrderGraphQLMapper.java            
         │   │                                              
-        │   ├───grpc                                       
-        │   │   ├───data                                   
-        │   │   └───mapper                                 
         │   └───rest                                       
         │       │   OrderRestAdapter.java                  
         │       │   RestaurantRestAdapter.java             
@@ -117,12 +107,20 @@ They are implementations of a functionality (**Port**) for a given **product/tec
             ├───customizedexception                        
             │   │   CustomizedExceptionAdapter.java        
             │   │                                          
-            │   └───data                                   
-            │       └───response                           
-            │               ExceptionResponse.java         
+            │   ├───data                                   
+            │   │   └───response                           
+            │   │           ExceptionResponse.java         
+            │   │                                          
+            │   └───exception                              
+            │           OrderNotFound.java                 
+            │           RestaurantNotFound.java            
             │                                              
-            ├───eventpublisher                             
-            │       OrderEventPublisherAdapter.java        
+            ├───eventsourcing                              
+            │   └───eventpublisher                         
+            │       │   OrderEventPublisherAdapter.java    
+            │       │                                      
+            │       └───event                              
+            │               OrderCreatedEvent.java         
             │                                              
             └───persistence                                
                 │   OrderPersistenceAdapter.java           
@@ -138,7 +136,7 @@ They are implementations of a functionality (**Port**) for a given **product/tec
                 │                                          
                 └───repository                             
                         OrderRepository.java               
-                        RestaurantRepository.java                                                                                                            
+                        RestaurantRepository.java                                                                                                                    
 ```
 ## 3. Logging and Monitoring Solution
 The 3 pillars of observability: **logs**, **metrics** and **traces**
@@ -212,7 +210,7 @@ http://localhost:2706/swagger-ui.html
 ![The Order Swagger!](/assets/images/order_swagger.png "Order Swagger")
 
 ## 5. API Testing
-Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test API
+Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test REST API in the **REST folder**
 
 ## 6. GraphQL
 GraphQL is a query language to retrieve data from a server. It is an alternative to REST, SOAP or gRPC. Imagine you have an API frontend implemented with GraphQL for the Order microservice. As shown in the below image, there are different services in your Order backend microservice that are accessible via different technologies. For example, user profile data is stored in a highly scalable NoSQL table. Orders are accessed through a REST API. The current inventory stock is checked through an Inventory Service. And the pricing information is in an SQL database
@@ -227,13 +225,19 @@ When modernizing frontend APIs with GraphQL, you can build applications faster b
 
 ### GraphQL API Testing
 
+**Option 1**
+
+Import [Postman Collection](/assets/ddd_hexagonal_architecture_postman_collection.json) ***[assets/ddd_hexagonal_architecture_postman_collection.json]*** file to the **Postman** application to test GraphQL APIs in the **GraphQL folder**
+
+**Option 2**
+
 Access to http://localhost:2706/graphiql and type the following queries to get data
 
 - Create a New Order
 
 ```graphql
 mutation {
-    createOrder(orderGraphQLInput: {
+    createOrder(orderInput: {
         name: "Cake" 
         description: "Sweet Cake"
         total: 100

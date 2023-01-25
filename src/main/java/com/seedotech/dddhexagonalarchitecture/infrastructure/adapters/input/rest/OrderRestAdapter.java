@@ -1,7 +1,7 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest;
 
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetOrderUseCase;
-import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.Order;
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateOrderUseCase;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.OrderCreateRequest;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.OrderCreateResponse;

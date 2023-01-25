@@ -1,16 +1,12 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import com.seedotech.dddhexagonalarchitecture.domain.exception.OrderNotFound;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception.exception.OrderNotFound;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception.data.response.ExceptionResponse;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;

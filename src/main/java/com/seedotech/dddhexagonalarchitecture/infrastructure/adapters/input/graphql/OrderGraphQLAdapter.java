@@ -2,12 +2,10 @@ package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.gra
 
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateOrderUseCase;
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetOrderUseCase;
-import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
-import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
-import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.data.request.OrderGraphQLInput;
+import com.seedotech.dddhexagonalarchitecture.domain.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.data.request.OrderInput;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.mapper.OrderGraphQLMapper;
-import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.OrderCreateRequest;
-import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.mapper.OrderRestMapper;
 import graphql.schema.DataFetchingEnvironment;
 import jakarta.persistence.criteria.Fetch;
 import jakarta.persistence.criteria.Join;
@@ -30,9 +28,9 @@ public class OrderGraphQLAdapter {
     private final OrderGraphQLMapper orderGraphQLMapper;
 
     @MutationMapping
-    public Order createOrder(@Argument OrderGraphQLInput orderGraphQLInput) {
+    public Order createOrder(@Argument OrderInput orderInput) {
         // Request to domain
-        Order order = orderGraphQLMapper.toOrder(orderGraphQLInput);
+        Order order = orderGraphQLMapper.toOrder(orderInput);
 
         order = createOrderUseCase.createOrder(order);
         return order;

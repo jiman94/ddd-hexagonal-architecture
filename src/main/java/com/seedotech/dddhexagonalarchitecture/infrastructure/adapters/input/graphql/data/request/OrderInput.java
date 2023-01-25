@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderGraphQLInput {
+public class OrderInput {
 
     private String name;
 

@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.mapper;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.Order;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.OrderQueryResponse;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.OrderCreateRequest;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.OrderCreateResponse;

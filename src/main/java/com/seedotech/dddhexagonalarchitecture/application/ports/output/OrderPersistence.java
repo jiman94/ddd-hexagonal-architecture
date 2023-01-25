@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.application.ports.output;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.Order;
 
 import java.util.Optional;
 

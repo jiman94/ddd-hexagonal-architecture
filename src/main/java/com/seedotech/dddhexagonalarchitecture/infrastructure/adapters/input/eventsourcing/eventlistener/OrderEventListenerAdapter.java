@@ -1,6 +1,6 @@
-package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.eventlistener;
+package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.eventsourcing.eventlistener;
 
-import com.seedotech.dddhexagonalarchitecture.domain.event.OrderCreatedEvent;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventsourcing.eventpublisher.event.OrderCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

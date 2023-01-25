@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.entity.RestaurantEntity;
 import org.mapstruct.Mapper;
 

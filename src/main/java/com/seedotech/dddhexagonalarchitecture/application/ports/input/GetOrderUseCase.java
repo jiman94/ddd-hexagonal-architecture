@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.application.ports.input;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.Order;
 
 public interface GetOrderUseCase {
 

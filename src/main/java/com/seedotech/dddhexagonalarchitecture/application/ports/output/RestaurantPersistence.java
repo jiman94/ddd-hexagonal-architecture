@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.application.ports.output;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
 
 import java.util.Optional;
 

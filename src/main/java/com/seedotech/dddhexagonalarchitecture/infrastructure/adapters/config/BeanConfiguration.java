@@ -1,8 +1,8 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.config;
 
-import com.seedotech.dddhexagonalarchitecture.domain.service.OrderService;
-import com.seedotech.dddhexagonalarchitecture.domain.service.RestaurantService;
-import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventpublisher.OrderEventPublisherAdapter;
+import com.seedotech.dddhexagonalarchitecture.application.service.OrderService;
+import com.seedotech.dddhexagonalarchitecture.application.service.RestaurantService;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventsourcing.eventpublisher.OrderEventPublisherAdapter;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.OrderPersistenceAdapter;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.RestaurantPersistenceAdapter;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper.OrderPersistenceMapper;

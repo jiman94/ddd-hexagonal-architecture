@@ -1,7 +1,7 @@
-package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventpublisher;
+package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventsourcing.eventpublisher;
 
 import com.seedotech.dddhexagonalarchitecture.application.ports.output.OrderEventPublisher;
-import com.seedotech.dddhexagonalarchitecture.domain.event.OrderCreatedEvent;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventsourcing.eventpublisher.event.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 

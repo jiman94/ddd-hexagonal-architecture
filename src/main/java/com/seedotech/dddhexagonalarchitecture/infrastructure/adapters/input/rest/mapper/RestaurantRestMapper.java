@@ -1,6 +1,6 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.mapper;
 
-import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.RestaurantCreateRequest;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.RestaurantCreateResponse;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.RestaurantQueryResponse;

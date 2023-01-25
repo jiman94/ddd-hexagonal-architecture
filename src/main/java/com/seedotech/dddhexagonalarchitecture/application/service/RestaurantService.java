@@ -1,10 +1,10 @@
-package com.seedotech.dddhexagonalarchitecture.domain.service;
+package com.seedotech.dddhexagonalarchitecture.application.service;
 
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateRestaurantUseCase;
 import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetRestaurantUseCase;
 import com.seedotech.dddhexagonalarchitecture.application.ports.output.RestaurantPersistence;
-import com.seedotech.dddhexagonalarchitecture.domain.exception.RestaurantNotFound;
-import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception.exception.RestaurantNotFound;
+import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

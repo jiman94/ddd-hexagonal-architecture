@@ -1,4 +1,4 @@
-package com.seedotech.dddhexagonalarchitecture.domain.model;
+package com.seedotech.dddhexagonalarchitecture.domain;
 
 import lombok.*;
 

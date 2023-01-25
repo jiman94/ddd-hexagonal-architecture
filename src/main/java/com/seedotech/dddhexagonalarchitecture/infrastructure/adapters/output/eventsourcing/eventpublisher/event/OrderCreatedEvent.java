@@ -1,4 +1,4 @@
-package com.seedotech.dddhexagonalarchitecture.domain.event;
+package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.eventsourcing.eventpublisher.event;
 
 import lombok.*;
 
