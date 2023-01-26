@@ -1,7 +1,7 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence;
 
-import com.seedotech.dddhexagonalarchitecture.application.ports.output.RestaurantPersistence;
-import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.application.ports.output.persistence.RestaurantPersistencePort;
+import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.entity.RestaurantEntity;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper.RestaurantPersistenceMapper;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.repository.RestaurantRepository;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class RestaurantPersistenceAdapter implements RestaurantPersistence {
+public class RestaurantPersistenceAdapter implements RestaurantPersistencePort {
 
     private final RestaurantRepository restaurantRepository;
 

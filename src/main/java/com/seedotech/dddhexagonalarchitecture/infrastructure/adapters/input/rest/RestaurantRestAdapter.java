@@ -1,8 +1,8 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest;
 
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateRestaurantUseCase;
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetRestaurantUseCase;
-import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.CreateRestaurantUseCase;
+import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.GetRestaurantUseCase;
+import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.request.RestaurantCreateRequest;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.RestaurantCreateResponse;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.rest.data.response.RestaurantQueryResponse;

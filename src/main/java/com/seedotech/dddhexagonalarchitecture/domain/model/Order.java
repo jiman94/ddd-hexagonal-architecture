@@ -1,4 +1,4 @@
-package com.seedotech.dddhexagonalarchitecture.domain;
+package com.seedotech.dddhexagonalarchitecture.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

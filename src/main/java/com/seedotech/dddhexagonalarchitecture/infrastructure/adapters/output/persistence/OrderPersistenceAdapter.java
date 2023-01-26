@@ -1,7 +1,7 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence;
 
-import com.seedotech.dddhexagonalarchitecture.application.ports.output.OrderPersistence;
-import com.seedotech.dddhexagonalarchitecture.domain.Order;
+import com.seedotech.dddhexagonalarchitecture.application.ports.output.persistence.OrderPersistencePort;
+import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.entity.OrderEntity;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.mapper.OrderPersistenceMapper;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.persistence.repository.OrderRepository;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class OrderPersistenceAdapter implements OrderPersistence {
+public class OrderPersistenceAdapter implements OrderPersistencePort {
 
     private final OrderRepository orderRepository;
 

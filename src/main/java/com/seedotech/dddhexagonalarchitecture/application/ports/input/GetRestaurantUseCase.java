@@ -1,9 +1,0 @@
-package com.seedotech.dddhexagonalarchitecture.application.ports.input;
-
-import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
-
-public interface GetRestaurantUseCase {
-
-    Restaurant getRestaurantById(Long id);
-
-}

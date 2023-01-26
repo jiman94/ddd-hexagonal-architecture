@@ -1,9 +1,9 @@
 package com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql;
 
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.CreateOrderUseCase;
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.GetOrderUseCase;
-import com.seedotech.dddhexagonalarchitecture.domain.Order;
-import com.seedotech.dddhexagonalarchitecture.domain.Restaurant;
+import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.CreateOrderUseCase;
+import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.GetOrderUseCase;
+import com.seedotech.dddhexagonalarchitecture.domain.model.Order;
+import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.data.request.OrderInput;
 import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.input.graphql.mapper.OrderGraphQLMapper;
 import graphql.schema.DataFetchingEnvironment;
@@ -11,15 +11,18 @@ import jakarta.persistence.criteria.Fetch;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class OrderGraphQLAdapter {
     private final CreateOrderUseCase createOrderUseCase;
 
@@ -32,7 +35,13 @@ public class OrderGraphQLAdapter {
         // Request to domain
         Order order = orderGraphQLMapper.toOrder(orderInput);
 
-        order = createOrderUseCase.createOrder(order);
+        try {
+            order = createOrderUseCase.createOrder(order);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
+
         return order;
     }
 
