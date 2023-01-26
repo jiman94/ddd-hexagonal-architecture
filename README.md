@@ -1,6 +1,8 @@
 # Domain Driven Design and Hexagonal Architecture
 An example approach for designing and implementing a **DDD Hexagonal Architecture** with **Spring Boot** with different input adapters like **REST** or **GraphQL**
 
+Regarding the Microservice architecture please refer to my repository to see details [Microservice Architecture](https://github.com/raycad/go-microservices)
+
 ## 1. Domain Driven Design
 **Micro-services** should be designed around business capabilities & they should have loose coupling and high functional cohesion. **Micro-services** are loosely coupled if you can change one service without requiring other services to be updated at the same time. A micro-service is cohesive if it has a single, well-defined purpose, such as managing user accounts or tracking delivery history. A service should encapsulate domain knowledge and abstract that knowledge from clients
 
@@ -41,111 +43,114 @@ They are implementations of a functionality (**Port**) for a given **product/tec
 
 **Project Structure**
 ```
-│   DDDHexagonalArchitectureApplication.java                  
-│                                                             
-├───application                                               
-│   ├───ports                                                 
-│   │   ├───input                                             
-│   │   │   └───usecase                                       
-│   │   │           CreateOrderUseCase.java                   
-│   │   │           CreateRestaurantUseCase.java              
-│   │   │           GetOrderUseCase.java                      
-│   │   │           GetRestaurantUseCase.java                 
-│   │   │                                                     
-│   │   └───output                                            
-│   │       ├───eventsourcing                                 
-│   │       │       OrderEventPublisherPort.java              
-│   │       │                                                 
-│   │       └───persistence                                   
-│   │               OrderPersistencePort.java                 
-│   │               RestaurantPersistencePort.java            
-│   │                                                         
-│   └───service                                               
-│           OrderService.java                                 
-│           RestaurantService.java                            
-│                                                             
-├───domain                                                    
-│   ├───model                                                 
-│   │       Order.java                                        
-│   │       Restaurant.java                                   
-│   │                                                         
-│   └───validation                                            
-│           OrderValidator.java                               
-│                                                             
-└───infrastructure                                            
-    └───adapters                                              
-        ├───config                                            
-        │       BeanConfiguration.java                        
-        │                                                     
-        ├───input                                             
-        │   ├───eventsourcing                                 
-        │   │   └───eventlistener                             
-        │   │           OrderEventListenerAdapter.java        
-        │   │                                                 
-        │   ├───graphql                                       
-        │   │   │   OrderGraphQLAdapter.java                  
-        │   │   │                                             
-        │   │   ├───data                                      
-        │   │   │   └───request                               
-        │   │   │           OrderInput.java                   
-        │   │   │                                             
-        │   │   └───mapper                                    
-        │   │           OrderGraphQLMapper.java               
-        │   │                                                 
-        │   └───rest                                          
-        │       │   OrderRestAdapter.java                     
-        │       │   RestaurantRestAdapter.java                
-        │       │                                             
-        │       ├───data                                      
-        │       │   ├───request                               
-        │       │   │       OrderCreateRequest.java           
-        │       │   │       RestaurantCreateRequest.java      
-        │       │   │                                         
-        │       │   └───response                              
-        │       │           OrderCreateResponse.java          
-        │       │           OrderQueryResponse.java           
-        │       │           RestaurantCreateResponse.java     
-        │       │           RestaurantQueryResponse.java      
-        │       │                                             
-        │       └───mapper                                    
-        │               OrderRestMapper.java                  
-        │               RestaurantRestMapper.java             
-        │                                                     
-        └───output                                            
-            ├───customizedexception                           
-            │   │   CustomizedExceptionAdapter.java           
-            │   │                                             
-            │   ├───data                                      
-            │   │   └───response                              
-            │   │           ExceptionResponse.java            
-            │   │                                             
-            │   └───exception                                 
-            │           OrderNotFound.java                    
-            │           RestaurantNotFound.java               
-            │                                                 
-            ├───eventsourcing                                 
-            │   └───eventpublisher                            
-            │       │   OrderEventPublisherAdapter.java       
-            │       │                                         
-            │       └───event                                 
-            │               OrderCreatedEvent.java            
-            │                                                 
-            └───persistence                                   
-                │   OrderPersistenceAdapter.java              
-                │   RestaurantPersistenceAdapter.java         
-                │                                             
-                ├───entity                                    
-                │       OrderEntity.java                      
-                │       RestaurantEntity.java                 
-                │                                             
-                ├───mapper                                    
-                │       OrderPersistenceMapper.java           
-                │       RestaurantPersistenceMapper.java      
-                │                                             
-                └───repository                                
-                        OrderRepository.java                  
-                        RestaurantRepository.java                                                                                                                                
+│   DDDHexagonalArchitectureApplication.java                     
+│                                                                
+├───application                                                  
+│   ├───port                                                     
+│   │   ├───input                                                
+│   │   │   └───usecase                                          
+│   │   │           CreateOrderUseCase.java                      
+│   │   │           CreateRestaurantUseCase.java                 
+│   │   │           GetOrderUseCase.java                         
+│   │   │           GetRestaurantUseCase.java                    
+│   │   │                                                        
+│   │   └───output                                               
+│   │       ├───eventsourcing                                    
+│   │       │       OrderEventPublisherPort.java                 
+│   │       │                                                    
+│   │       └───persistence                                      
+│   │               OrderPersistencePort.java                    
+│   │               RestaurantPersistencePort.java               
+│   │                                                            
+│   └───service                                                  
+│           OrderService.java                                    
+│           RestaurantService.java                               
+│                                                                
+├───domain                                                       
+│   ├───exception                                                
+│   │       OrderNotFound.java                                   
+│   │       RestaurantNotFound.java                              
+│   │                                                            
+│   ├───model                                                    
+│   │       Order.java                                           
+│   │       Restaurant.java                                      
+│   │                                                            
+│   └───validation                                               
+│           OrderValidator.java                                  
+│                                                                
+└───infrastructure                                               
+    └───adapter                                                  
+        ├───config                                               
+        │       BeanConfiguration.java                           
+        │                                                        
+        ├───input                                                
+        │   ├───eventsourcing                                    
+        │   │   └───eventlistener                                
+        │   │           OrderEventListenerAdapter.java           
+        │   │                                                    
+        │   ├───graphql                                          
+        │   │   │   OrderGraphQLAdapter.java                     
+        │   │   │                                                
+        │   │   ├───data                                         
+        │   │   │   └───request                                  
+        │   │   │           OrderInput.java                      
+        │   │   │                                                
+        │   │   └───mapper                                       
+        │   │           OrderGraphQLMapper.java                  
+        │   │                                                    
+        │   └───rest                                             
+        │       │   OrderRestAdapter.java                        
+        │       │   RestaurantRestAdapter.java                   
+        │       │                                                
+        │       ├───data                                         
+        │       │   ├───request                                  
+        │       │   │       OrderCreateRequest.java              
+        │       │   │       RestaurantCreateRequest.java         
+        │       │   │                                            
+        │       │   └───response                                 
+        │       │           OrderCreateResponse.java             
+        │       │           OrderQueryResponse.java              
+        │       │           RestaurantCreateResponse.java        
+        │       │           RestaurantQueryResponse.java         
+        │       │                                                
+        │       └───mapper                                       
+        │               OrderRestMapper.java                     
+        │               RestaurantRestMapper.java                
+        │                                                        
+        └───output                                               
+            ├───customizedexception                              
+            │   │   CustomizedExceptionAdapter.java              
+            │   │                                                
+            │   └───data                                         
+            │       └───response                                 
+            │               ExceptionResponse.java               
+            │                                                    
+            ├───eventsourcing                                    
+            │   └───eventpublisher                               
+            │       │   OrderEventPublisherAdapter.java          
+            │       │                                            
+            │       └───event                                    
+            │               OrderCreatedEvent.java               
+            │                                                    
+            └───persistence                                      
+                │   OrderPersistenceAdapter.java                 
+                │   RestaurantPersistenceAdapter.java            
+                │                                                
+                ├───entity                                       
+                │       OrderEntity.java                         
+                │       RestaurantEntity.java                    
+                │                                                
+                ├───mapper                                       
+                │       OrderPersistenceMapper.java              
+                │       RestaurantPersistenceMapper.java         
+                │                                                
+                └───repository                                   
+                        OrderRepository.java                     
+                        RestaurantRepository.java                                                                                                                                              
 ```
+**Create Order Sequence Diagram Example**
+![Create Order Sequence Diagram!](/assets/images/create_order_sequence_diagram.png "Create Order Sequence Diagram")
+
 ## 3. Logging and Monitoring Solution
 The 3 pillars of observability: **logs**, **metrics** and **traces**
 - **Logs** are files that record events, warnings and errors as they occur within a software environment

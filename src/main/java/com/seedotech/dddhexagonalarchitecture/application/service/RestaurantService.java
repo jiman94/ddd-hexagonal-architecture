@@ -1,9 +1,9 @@
 package com.seedotech.dddhexagonalarchitecture.application.service;
 
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.CreateRestaurantUseCase;
-import com.seedotech.dddhexagonalarchitecture.application.ports.input.usecase.GetRestaurantUseCase;
-import com.seedotech.dddhexagonalarchitecture.application.ports.output.persistence.RestaurantPersistencePort;
-import com.seedotech.dddhexagonalarchitecture.infrastructure.adapters.output.customizedexception.exception.RestaurantNotFound;
+import com.seedotech.dddhexagonalarchitecture.application.port.input.usecase.CreateRestaurantUseCase;
+import com.seedotech.dddhexagonalarchitecture.application.port.input.usecase.GetRestaurantUseCase;
+import com.seedotech.dddhexagonalarchitecture.application.port.output.persistence.RestaurantPersistencePort;
+import com.seedotech.dddhexagonalarchitecture.domain.exception.RestaurantNotFound;
 import com.seedotech.dddhexagonalarchitecture.domain.model.Restaurant;
 import lombok.AllArgsConstructor;
 
