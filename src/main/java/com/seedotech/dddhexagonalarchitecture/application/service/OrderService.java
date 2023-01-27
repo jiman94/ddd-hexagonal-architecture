@@ -20,12 +20,15 @@ public class OrderService implements CreateOrderUseCase, GetOrderUseCase {
 
     @Override
     public Order createOrder(Order order) throws Exception {
-        // Validate order
+        // Validate order constraints/rules
         OrderValidator.validateOrder(order);
-        // Check the order logic
+        // Check the application-specific business rules of the order
         checkIfNameIsExisting(order.getName());
+        // Save the order to the database
         order = orderPersistencePort.saveOrder(order);
+        // Publish the order created event
         orderEventPublisherPort.publishOrderCreatedEvent(new OrderCreatedEvent(order.getId()));
+        // Return the order with all information (e.g. includes the generated id)
         return order;
     }
 

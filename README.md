@@ -12,13 +12,15 @@ Regarding the Microservice architecture please refer to my repository to see det
 **Hexagonal Architecture** creates dependency rules can decouple the layers. The hexagonal architecture is also called the **Ports** and **Adapters**. The outer layers may only depend on the inner layers, and the inner layers should not rely on the outer ones. Each layer is defined as follows:
 
 ### 2.1. Infrastructure Layer
-The **Infrastructure Layer** contains code interfaces with application infrastructure – controllers, UI, persistence, and gateways to external systems. A web framework or persistence library will provide many of the objects in this layer. Concretions of domain repositories are placed in this layer, while the virtual interfaces are defined in the domain layer
+The **Infrastructure Layer** contains code interfaces with application infrastructure – controllers, UI, presenters, persistence, and gateways through the **input/output adapters** to external systems
 
 ### 2.2. Application Layer
-The **Application Layer** provides an API for all functionality provided by the application. It accepts commands from the client (web, API, or CLI) and translates them into values understood by the domain layer. For example, a RegisterUser service would accept a Data Transfer Object containing a new user's credentials and delegate responsibility for creating a user to the domain layer
+The **Application Layer** provides an API for all **functionality/use cases** provided by the application. It contains **input/output ports**, **application-specific business rules** and **decision making**. It accepts commands from the client (web, API, or CLI) and translates them into values understood by the domain layer. For example, a RegisterUser service would accept a Data Transfer Object containing a new user's credentials and delegate responsibility for creating a user to the domain layer
 
 ### 2.3. Domain Layer
-The **Domain Layer** contains any **domain model**, **business logic**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
+The **Domain Layer** contains any **domain model**, **domain constraints/rules**. It deals entirely with **domain concepts** and **lacks knowledge of the outer layers**
+
+### The application layer has incoming ports (use cases) that are called from incoming adapters, implemented by services, that use outcoming ports that are implemented by outgoing adapters
 
 ![Hexagonal Architecture!](/assets/images/ddd_hexagonal_architecture.png "Hexagonal Architecture")
 
@@ -28,7 +30,7 @@ Each **Port** may have different **implementations** (**Adapters**)
 **Ports** *cannot be used by themselves* and in their place, an **adapter** *implementing* them should be added to the list of dependencies
 
 **Adapter**
-They are implementations of a functionality (**Port**) for a given **product/technology/use case**. Clients should only use **ports**' code (*not* **Adapters** *specific code*), *this makes them easy to switch among different adapters with minimum impact*
+They are **implementations of a functionality/use cases** (**Port**) for a given **product/technology/use case**. Clients should only use **ports**' code (*not* **Adapters** *specific code*), *this makes them easy to switch among different adapters with minimum impact*
 **Adapters** are independent of each other, and you can use **several adapters** for the **same port** in a **single application**. For example, you could use many Template adapters to support several template engines
 **Adapter** names must start with their Port name
 
